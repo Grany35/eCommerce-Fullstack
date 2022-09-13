@@ -1,0 +1,56 @@
+<body class="skin-blue sidebar-mini">
+  <div class="wrapper">
+    <header class="main-header">
+      <a href="../../index2.html" class="logo">
+        <span class="logo-mini"><b>E</b>A</span>
+        <span class="logo-lg"><b>E</b>commerce <b>A</b>dmin</span>
+      </a>
+      <nav class="navbar navbar-static-top" role="navigation">
+        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar">deneme</span>
+        </a>
+        <div class="navbar-custom-menu">
+        </div>
+      </nav>
+    </header>>
+    <aside class="main-sidebar">
+      <section class="sidebar">
+        <ul class="sidebar-menu">
+          <li class="header">SAYFALAR</li>
+
+          <li class="treeview">
+            <a href="#">
+              <i class="fa fa-table"></i> <span>Ürün İşlemleri</span>
+              <i class="fa fa-angle-left pull-right"></i>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="/admin/product"><i class="fa fa-circle-o"></i> Ürün Ekleme</a></li>
+              <li><a href="/admin/productlist"><i class="fa fa-circle-o"></i> Ürün Listesi</a></li>
+            </ul>
+          </li>
+
+          <li class="treeview">
+            <a href="#">
+              <i class="fa fa-shopping-cart"></i> <span>Siparişler</span>
+              <i class="fa fa-angle-left pull-right"></i>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="/admin/orders"><i class="fa fa-circle-o"></i> Sipariş Listesi</a></li>
+            </ul>
+          </li>
+
+        </ul>
+      </section>
+    </aside>
+    <div class="content-wrapper">
+      <section class="content">
+        <app-product-admin *ngIf="router.url=='/admin/product'"></app-product-admin>
+        <app-product-list-admin *ngIf="router.url=='/admin/productlist'" ></app-product-list-admin>
+        <app-orders-admin *ngIf="router.url=='/admin/orders'" ></app-orders-admin>
+      </section>
+    </div>
+  </div>
+</body>

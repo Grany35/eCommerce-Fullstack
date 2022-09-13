@@ -1,0 +1,170 @@
+<div class="row">
+  <div class="col-md-12">
+    <div  class="box">
+      <div class="box-header">
+        <h3 class="box-title">Ürün Listesi</h3>
+        <div style="background-color: #faf7f7; border-radius: 4px;" class="box-body no-padding">
+          <table  class="table table-condensed">
+            <tbody>
+              <tr>
+                <th class="text-center" style="width: 30px"> #</th>
+                <th>Ad</th>
+                <th>Birim Fiyat</th>
+                <th class="text-start">Stok Durumu</th>
+                <th>Kategori</th>
+                <th>Marka</th>
+                <th>Durum</th>
+                <th>İşlemler</th>
+              </tr>
+
+              <tr  *ngFor="let product of products">
+                <td >
+                  <img  class="direct-chat-img" src="{{product.mainPhotoUrl}}">
+                </td>
+                <td>
+                  <span *ngIf="product.isActive===true" class="badge">{{product.productName}}</span>
+                  <span *ngIf="product.isActive===false" style="background-color: #b83f32;"
+                    class="badge">{{product.productName}}</span>
+                </td>
+                <td>
+                  <span class="badge" style="background-color: white; color:black;">{{product.productPrice | number:'1.2-2'}}</span>
+                </td>
+                <td >
+                  <span *ngIf="product.productStock>10" class="badge">{{product.productStock}}</span>
+                  <span style="background-color: #e8600c;" *ngIf="product.productStock <=10" class="badge">{{product.productStock}}</span>
+                </td>
+                <td>
+                  <span *ngIf="product.isActive===true" class="badge">{{product.categoryName}}</span>
+                  <span *ngIf="product.isActive===false" style="background-color: #b83f32;"
+                    class="badge">{{product.categoryName}}</span>
+                </td>
+                <td>
+                  <span *ngIf="product.isActive===true" class="badge">{{product.brandName}}</span>
+                  <span *ngIf="product.isActive===false" style="background-color: #b83f32;"
+                    class="badge">{{product.brandName}}</span>
+                </td>
+                <td>
+                  <span *ngIf="product.isActive===true" class="badge">{{product.isActive?
+                    "Aktif":"Pasif"}}
+                  </span>
+                  <span *ngIf="product.isActive===false" style="background-color: #b83f32;"
+                    class="badge">{{product.isActive?
+                    "Aktif":"Pasif"}}</span>
+                </td>
+                <td >
+                  <button (click)="deleteProduct(product.id)" class="btn btn-danger btn-xs">
+                    <i class="fa fa-trash"></i> Sil
+                  </button>
+                  <button class="btn btn-warning btn-xs" style="margin-left: 5px;" (click)="getProductPhotos(product.id)" (click)="openPhotoListDialog()">
+                    Fotoğraflar
+                  </button>
+                  <button style="margin-left: 5px;" class="btn btn-primary btn-xs" (click)="imageUploader(product.id)" (click)="openPhotoAddDialog()">
+                    Fotoğraf Ekle
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="box-footer clearfix" *ngIf="pagination">
+          <ul class="pagination pagination-sm no-margin pull-right">
+            <pagination [boundaryLinks]="true" [totalItems]="pagination.totalItems"
+              [itemsPerPage]="pagination.itemsPerPage" [(ngModel)]="pagination.currentPage"
+              (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
+              lastText="&raquo;">
+            </pagination>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+
+    <!--Ürün görselleri-->
+    <ng-template #photoListDialog>
+      <div class="container">
+        <div class="row" >
+          <div  class=" col-md-6 img-productadmin" *ngFor="let productPhoto of productPhotos">
+              <img [ngStyle]="{'background-color': productPhoto.isMain? 'green' : 'white'}" class="img-fluid img-thumbnail" src="{{productPhoto.url}}" alt="">
+              <button  (click)="deleteProductPhoto(productPhoto.id)" class="btn btn-danger btn-m" style="margin-left: 5px;">Sil</button>
+              <button *ngIf="!productPhoto.isMain" (click)="setMainPhoto(productPhoto.id)" class="btn btn-success btn-m" style="margin-left: 5px;">Birincil Fotoğraf yap</button>
+          </div>
+        </div>
+      </div>
+     </ng-template>
+
+
+
+
+     <ng-template #photoAddDialog>
+
+
+      <div class="row mt-3">
+
+        <div class="col-md-3">
+
+            <h3>Fotoğraf Ekleme Alanı</h3>
+
+            <div ng2FileDrop
+                 [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
+                 (fileOver)="fileOverBase($event)"
+                 [uploader]="uploader"
+                 class="car bg-faded p-3 text-center mb-3 my-drop-zone">
+                 <i class="fa fa-upload fa-3x"></i>
+                Fotoğrafı Buraya Sürükle
+            </div>
+
+            Multiple
+            <input type="file" ng2FileSelect [uploader]="uploader" multiple  /><br/>
+
+            Single
+            <input type="file" ng2FileSelect [uploader]="uploader" />
+        </div>
+
+        <div class="col-md-9" style="margin-bottom: 40px" *ngIf="uploader.queue.length">
+
+            <h3>Upload queue</h3>
+            <p>Queue length: {{ uploader?.queue?.length }}</p>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th width="50%">Name</th>
+                    <th>Size</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of uploader.queue">
+                    <td><strong>{{ item?.file?.name }}</strong></td>
+                    <td *ngIf="uploader.options.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div>
+                <div>
+                    Queue progress:
+                    <div class="progress" >
+                        <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-success btn-s"
+                        (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+                    <span class="fa fa-upload"></span> Upload all
+                </button>
+                <button type="button" class="btn btn-warning btn-s"
+                        (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
+                    <span class="fa fa-ban"></span> Cancel all
+                </button>
+                <button type="button" class="btn btn-danger btn-s"
+                        (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
+                    <span class="fa fa-trash"></span> Remove all
+                </button>
+            </div>
+
+        </div>
+
+      </div>
+
+     </ng-template>
+
+

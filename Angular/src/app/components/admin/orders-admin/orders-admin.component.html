@@ -1,0 +1,46 @@
+<div class="row">
+
+<div style="margin-top: 8px;"   *ngFor="let order of orders">
+  <mat-expansion-panel  hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{order.orderName}}
+      </mat-panel-title>
+      <mat-panel-description>
+        {{order.totalPrice | number: '1.2-2'}} ₺ / {{order.count}} adet
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <table  class="table table-condensed">
+      <tbody>
+        <tr>
+          <th>Ürün Adı</th>
+          <th>Ürün Fiyatı</th>
+          <th>Ürün ID</th>
+          <th>Kullanıcı ID</th>
+        </tr>
+
+        <tr *ngFor="let orderDetails of order.orders">
+          <td >
+           {{orderDetails.productName}}
+          </td>
+          <td>
+            {{orderDetails.productPrice | number:'1.2-2'}} ₺
+          </td>
+          <td>
+            {{orderDetails.productId}}
+          </td>
+          <td>
+            {{orderDetails.userId}}
+          </td>
+
+        </tr>
+      </tbody>
+    </table>
+  </mat-expansion-panel>
+</div>
+
+
+
+</div>
+
+

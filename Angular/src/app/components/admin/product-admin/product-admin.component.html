@@ -1,0 +1,89 @@
+<div class="row">
+  <!-- Ürün Ekleme -->
+  <div class="col-md-6">
+    <div class="box box-primary">
+      <div class="box-header with-border">
+        <h3 class="box-title">Ürün Ekleme</h3>
+      </div>
+      <form [formGroup]="productAddForm" >
+        <div class="box-body">
+          <div class="form-group">
+            <label>Ürün Adı</label>
+            <input type="text" class="form-control"  placeholder="Ürün Adı Giriniz" formControlName="productName" >
+          </div>
+          <div class="form-group">
+            <select class="form-control select2" tabindex="-1" aria-hidden="true"  formControlName="categoryId" >
+              <option value="" selected hidden>Kategori Seçiniz</option>
+              <option  *ngFor="let category of category" [value]="category.id" >{{category.categoryName}}</option>
+            </select>
+          </div>
+           <div class="form-group">
+            <select class="form-control select2" tabindex="-1" aria-hidden="true" formControlName="brandId" >
+              <option value="" selected hidden>Marka Seçiniz</option>
+              <option  *ngFor="let brand of brand" [value]="brand.id" >{{brand.brandName}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Ürün Fiyatı</label>
+            <input type="text" class="form-control"  placeholder="Ürün Fiyatı Giriniz" formControlName="productPrice" >
+          </div>
+          <div class="form-group">
+            <label>Ürün Stoğu</label>
+            <input type="text" class="form-control"  placeholder="Ürün Stoğu Giriniz" formControlName="productStock" >
+          </div>
+          <div class="form-group">
+            <label for="exampleInputFile">File input</label>
+            <input type="file" formControlName="mainPhoto" (change)="setFile($event)">
+            <p class="help-block">Ürünün diğer fotoğraflarını eklemek için Liste sayfasına gidiniz</p>
+          </div>
+        </div>
+        <div class="box-footer">
+          <button type="submit" (click)="addProduct()" class="btn btn-primary">Ekle</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- Kategori Ekleme -->
+  <div class="col-md-6">
+    <div class="box box-success">
+      <div class="box-header with-border">
+        <h3 class="box-title">Kategori Ekleme</h3>
+      </div>
+      <form [formGroup]="categoryAddForm">
+        <div class="box-body">
+          <div class="form-group">
+            <label>Kategori Adı</label>
+            <input type="text" formControlName="categoryName" autocomplete="off" class="form-control"  placeholder="Kategori adı giriniz">
+          </div>
+        </div>
+        <div class="box-footer">
+          <button type="submit" (click)="addCategory()" class="btn btn-success">Ekle</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- Marka Ekleme -->
+  <div class="col-md-6">
+    <div class="box box-danger">
+      <div class="box-header with-border">
+        <h3 class="box-title">Marka Ekleme</h3>
+      </div>
+      <form [formGroup]="brandAddForm">
+        <div class="box-body">
+          <div class="form-group">
+            <label>Marka Adı</label>
+            <input type="text" formControlName="brandName" autocomplete="off" class="form-control"  placeholder="Marka adı giriniz">
+          </div>
+        </div>
+        <div class="box-footer">
+          <button type="submit" (click)="addBrand()" class="btn btn-danger">Ekle</button>
+
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+

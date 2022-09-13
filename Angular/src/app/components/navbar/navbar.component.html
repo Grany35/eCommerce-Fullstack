@@ -1,0 +1,91 @@
+<div id="header">
+  <!-- container -->
+  <div class="container">
+    <!-- row -->
+    <div class="row">
+      <!-- LOGO -->
+      <div class="col-md-3">
+        <div class="header-logo">
+          <a href="#" class="logo">
+            <img src="./assets/img/logo.png" alt="">
+          </a>
+        </div>
+      </div>
+      <!-- /LOGO -->
+
+      <!-- SEARCH BAR -->
+      <div class="col-md-5 row" >
+        <div *ngIf="!isAuthenticated">
+        <form [formGroup]="loginForm" >
+        <div class="header-search col-md-5">
+          <input formControlName="mail" placeholder="Email" type="text" class="form-control">
+        </div>
+        <div class="header-search col-md-5">
+          <input formControlName="password" placeholder="Şifre" type="text" class="form-control">
+        </div>
+        <div class="header-search col-md-2">
+          <button (click)="login()" class="btn">Giriş Yap</button>
+        </div>
+      </form>
+    </div>
+      </div>
+      <!-- /SEARCH BAR -->
+
+      <!-- ACCOUNT -->
+      <div class="col-md-4 clearfix">
+        <div class="header-ctn" *ngIf="isAuthenticated">
+          <!-- Wishlist -->
+
+
+          <!-- /Wishlist -->
+
+          <!-- Cart -->
+          <div class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+              <i class="fa fa-shopping-cart"></i>
+              <span>Sepetim</span>
+              <div *ngIf="baskets" class="qty">{{baskets.length}}</div>
+            </a>
+            <div class="cart-dropdown">
+              <div class="cart-list" >
+
+                <div class="product-widget" *ngFor="let basket of baskets">
+                  <div class="product-img">
+                    <img src="{{basket.mainPhotoUrl}}" alt="">
+                  </div>
+                  <div class="product-body">
+                    <h3 class="product-name"><a href="#">{{basket.productName}}</a></h3>
+                    <h4 class="product-price"><span class="qty">1x</span>₺{{basket.productPrice}}</h4>
+                  </div>
+                  <button (click)="deleteBasket(basket.id)" class="delete"><i class="fa fa-close"></i></button>
+                </div>
+
+
+              </div>
+              <div class="cart-summary">
+                <small>3 Item(s) selected</small>
+                <h5 >SUBTOTAL:{{getTotal()}} </h5>
+              </div>
+              <div class="cart-btns">
+                <a href="#">View Cart</a>
+                <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+          </div>
+          <!-- /Cart -->
+
+          <div >
+            <a (click)="logout()" href="#">
+              <i class="fa fa-sign-out"></i>
+              <span>Çıkış Yap</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<nav id="navigation">
+</nav>
