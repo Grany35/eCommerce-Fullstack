@@ -16,6 +16,8 @@ Here're some of the project's best features:
 *   Memory Caching
 *   Cloudinary Cloud
 *   Exception Middleware
+*   Api Paggination
+*   Params Filter
 
   
   
