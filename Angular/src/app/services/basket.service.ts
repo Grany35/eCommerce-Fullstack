@@ -14,7 +14,7 @@ export class BasketService {
   ) { }
 
 
-  getBasket(){
+  getBasket():Observable<BasketModel[]>{
     let api = this.apiUrl+'Baskets';
     return this.httpClient.get<BasketModel[]>(api);
   }

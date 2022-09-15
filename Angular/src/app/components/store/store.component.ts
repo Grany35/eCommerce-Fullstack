@@ -68,6 +68,7 @@ export class StoreComponent implements OnInit {
 
   addBasket(productId:number){
     this.basketService.addBasket(productId).subscribe(()=>{
+      this.navbar.baskets.push();
       this.navbar.getBasket();
       this.basketService.getBasket();
     })

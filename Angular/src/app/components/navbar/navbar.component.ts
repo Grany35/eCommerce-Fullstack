@@ -14,6 +14,8 @@ import { BasketService } from 'src/app/services/basket.service';
 })
 export class NavbarComponent implements OnInit {
 
+  public totalItem:number=0;
+
   isAuthenticated:boolean;
 
   loginForm:FormGroup;
@@ -65,6 +67,7 @@ export class NavbarComponent implements OnInit {
   getBasket(){
     this.basketService.getBasket().subscribe((res)=>{
       this.baskets=res;
+      this.totalItem=res.length;
     })
   }
 

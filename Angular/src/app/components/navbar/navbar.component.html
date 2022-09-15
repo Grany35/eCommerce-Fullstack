@@ -44,14 +44,14 @@
             <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
               <i class="fa fa-shopping-cart"></i>
               <span>Sepetim</span>
-              <div *ngIf="baskets" class="qty">{{baskets.length}}</div>
+              <div  *ngIf="baskets" class="qty">{{baskets.length}}</div>
             </a>
             <div class="cart-dropdown">
               <div class="cart-list" >
 
-                <div class="product-widget" *ngFor="let basket of baskets">
+                <div [(ngModel)]="baskets" class="product-widget" *ngFor="let basket of baskets">
                   <div class="product-img">
-                    <img src="{{basket.mainPhotoUrl}}" alt="">
+                    <img src="{{basket.mainPhotoUrl}}"  alt="">
                   </div>
                   <div class="product-body">
                     <h3 class="product-name"><a href="#">{{basket.productName}}</a></h3>

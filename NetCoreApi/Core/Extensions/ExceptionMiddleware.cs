@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;

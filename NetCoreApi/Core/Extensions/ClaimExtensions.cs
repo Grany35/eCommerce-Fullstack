@@ -18,5 +18,10 @@ namespace Core.Extensions
         {
             roles.ToList().ForEach(role => claims.Add(new Claim(ClaimTypes.Role, role)));
         }
+
+        public static void AddMail(this ICollection<Claim> claims, string mail)
+        {
+            claims.Add(new Claim(ClaimTypes.Email, mail));
+        }
     }
 }
